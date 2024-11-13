@@ -40,3 +40,40 @@ function drawRandomShape(x, y, w, h) {
     }
     context.fill(); // Teken de vorm
 }
+function drawPoster() {
+    let rows = 2;
+    let columns = 3;
+    let margin = 50;
+
+    // Bereken de maximale breedte en hoogte per poster (zonder marges)
+    let maxWidth = (width - (margin * (columns + 1))) / columns;
+    let maxHeight = (height - (margin * (rows + 1))) / rows;
+
+    for (let i = 0; i < columns; i++) {
+        for (let j = 0; j < rows; j++) {
+            // Bereken de x- en y-posities met marges
+            let x = margin + i * (maxWidth + margin);
+            let y = margin + j * (maxHeight + margin);
+
+            // Vaste afmetingen voor de achtergrondrechthoek
+            let w = maxWidth;  // De rechthoek neemt de volledige breedte van de poster in
+            let h = maxHeight; // De rechthoek neemt de volledige hoogte van de poster in
+
+            // Teken de achtergrondrechthoek voor elke poster (dit is de vaste rechthoek)
+            context.fillStyle = "lightblue"; // Vaste achtergrondkleur (bijv. lichtblauw)
+            context.fillRect(x, y, w, h); // Achtergrondrechthoek tekenen
+            // Teken meerdere lagen van willekeurige vormen op de achtergrond
+            let numberOfLayers = Math.floor(Math.random() * 5) + 2; // Willekeurig aantal lagen (minimaal 2, maximaal 6)
+            for (let layer = 0; layer < numberOfLayers; layer++) {
+                // Willekeurige x, y, w, h voor elke laag
+                let layerX = x + Math.random() * (w / 2);
+                let layerY = y + Math.random() * (h / 2);
+                let layerWidth = Math.random() * (w / 2);
+                let layerHeight = Math.random() * (h / 2);
+
+                // Teken een willekeurige vorm op de laag
+                drawRandomShape(layerX, layerY, layerWidth, layerHeight);
+            }
+        }
+    }
+}
